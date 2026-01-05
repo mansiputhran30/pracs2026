@@ -1,0 +1,1776 @@
+------------------Module 1:Practicals------------------
+
+1. Write a program that compares two strings and checks for substring presence.
+
+import java.util.Scanner;
+public class sample {
+ 	public static void main(String[] args) {
+ 		System.out.println("Name: Maanya Harish Mendon");
+ 		System.out.println("Roll no: 90");
+ 		System.out.println("Div: B");
+ 		// TODO Auto-generated method stub
+ 		Scanner sc=new Scanner(System.in);
+ 		System.out.println("Enter First String: ");
+ 		String str1=sc.nextLine();
+ 		System.out.println("Enter Second String: ");
+ 		String str2=sc.nextLine();
+ 		if(str1.equals(str2)) {
+ 			System.out.println("Both Strings are equal");}
+ 		else {System.out.println("Strings are not equal");}
+ 		if(str1.contains(str2)) {
+ 			System.out.println("\" "+ str2 + "\" is a substring of \" "+ str1+"\" ");}
+ 		else if(str2.contains(str1)) {
+ 			System.out.println("\" "+ str1 + "\" is a substring of \" "+ str2+"\" ");}
+ 		else {
+ 			System.out.println("No Substring relation found between two strings.");}
+ 		sc.close();}}
+
+
+2. Program to encode characters to their Unicode representations and decode them back.
+
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+public class sample {
+ 	public static void main(String[] args) {
+ 		System.out.println("Name: Maanya Harish Mendon");
+ 		System.out.println("Roll no: 90");
+ 		System.out.println("Div: B");
+       Scanner scanner = new Scanner(System.in);
+       System.out.print("Enter a string: ");
+       String inputString = scanner.nextLine();
+       System.out.println("\nUnicode code points for the input string:");
+       for (int i = 0; i < inputString.length(); i++) {
+           int codePoint = inputString.codePointAt(i);
+           System.out.printf("Character: "+inputString.charAt(i)+" Code point: "+ codePoint+"\n");
+       }
+       byte[] utf8Bytes = inputString.getBytes(StandardCharsets.UTF_8);
+       System.out.println("\nString in UTF-8 byte encoding:");
+       for (byte b : utf8Bytes) {
+           System.out.printf("Byte:"+ b+"\n"); // Print each byte in hexadecimal format
+       }
+       String decodedString = new String(utf8Bytes, StandardCharsets.UTF_8);
+       System.out.println("\nDecoded string from UTF-8 bytes: " + decodedString);
+       scanner.close();}}
+
+
+Program 3 : Write a program that takes user input for multiple strings and appends them using StringBuilder.
+
+import java.util.Scanner;
+public class sample {
+ 	public static void main(String[] args) {
+System.out.println("Name: Maanya Harish Mendon");
+ 		System.out.println("Roll no: 90");
+ 		System.out.println("Div: B");
+   	Scanner scanner = new Scanner(System.in);
+   	StringBuilder result = new StringBuilder();
+   	System.out.println("Enter strings to concatenate (type 'exit' to stop):");
+   	while (true) {
+       	String input = scanner.nextLine();
+       	if (input.equalsIgnoreCase("exit")){
+           	break;}
+       	result.append(input).append(" "); }
+   	System.out.println("Concatenated result: " + result.toString().trim());
+   	scanner.close(); }}
+
+Program 4 : Write a program to split a paragraph into individual sentences
+
+import java.util.Scanner;
+public class sample {
+ 	public static void main(String[] args) {
+ 		System.out.println("Name: Maanya Harish Mendon");
+ 		System.out.println("Roll no: 90");
+ 		System.out.println("Div: B");
+   	String paragraph = "This is the first sentence. Is this the second sentence? Yes! It is the third one.";
+   	String[] sentences = paragraph.split("[.?!]");
+   	for (int i = 0; i < sentences.length; i++) {
+       	System.out.println(sentences[i].trim());
+   	}
+ 	}
+}
+
+Program 5 : Write a program to convert a date object to a string in a specific format.
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+public class sample {
+  public static void main(String[] args) {
+  	System.out.println("Name : Maanya Harish Mendon");
+ 	  	System.out.println("Roll No  : 90");
+      // Create a Date object representing the current date and time
+      Date currentDate = new Date();
+      // Define the desired date format
+      SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+      // Convert the Date object into a formatted string
+      String formattedDate = formatter.format(currentDate);
+      // Display the formatted date string
+      System.out.println("Current Date in formatted form: " + formattedDate);
+  }
+}
+
+
+Program 6 : Write a program to insert a substring into a string at a specific position using StringBuilder.
+
+import java.util.Scanner;
+public class sample {
+ 	public static void main(String[] args) {
+ 		System.out.println("Name : Maanya Harish Mendon");
+ 	  	System.out.println("Roll No  : 90")
+ 		Scanner sc = new Scanner(System.in);
+ 
+      System.out.print("Enter the original string: ");
+      String original = sc.nextLine()
+System.out.print("Enter the substring to insert: ")
+ String substring = sc.nextLine();
+System.out.print("Enter the position to insert at : ");
+      int position = sc.nextInt();
+StringBuilder sb = new StringBuilder(original);
+sb.insert(position, substring);
+System.out.println("String after insertion: " + sb.toString());
+      sc.close();}}
+
+
+Program 7: Write a program to remove null values from an array of strings
+
+ public class sample {
+ 	public static void main(String[] args) {
+ 	System.out.println("Name : Maanya Harish Mendon ");
+ 	  	System.out.println("Roll No  : 90");
+   	// Initialize array with some null values
+   	String[] strArray = {"apple", null, "banana", "cherry", null, "date"};
+   	// Count non-null values to create a new array
+   	int count = 0;
+   	for (String s : strArray) {
+       	if (s != null) {
+           	count++;
+       	}
+   	}
+   	// Create a new array to store non-null values
+   	String[] resultArray = new String[count];
+   	int index = 0;
+   	// Copy non-null values into the new array
+   	for (String s : strArray) {
+       	if (s != null) {
+           	resultArray[index++] = s;
+       	}
+   	}
+   	// Print the result
+   	System.out.print("Array after removing null values: ");
+   	for (String s : resultArray) {
+       	System.out.print(s + " ");
+   	}
+ 	}
+}
+
+Program 8: Write a program to find all occurrences of a pattern in a string using Pattern and Matcher.
+
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+public class sample {
+ 	public static void main(String[] args) {
+ 		System.out.println("Name : Maanya Harish Mendon");
+ 		System.out.println("Roll No  : 90");
+ 		 Scanner sc = new Scanner(System.in);
+ 	        // Input string
+ 	        System.out.print("Enter the main string: ");
+ 	        String inputString = sc.nextLine();
+ 	        // Input pattern
+ 	        System.out.print("Enter the pattern to find: ");
+ 	        String patternString = sc.nextLine();
+ 	        // Compile the pattern
+ 	        Pattern pattern = Pattern.compile(patternString);
+ 	        // Create matcher
+ 	        Matcher matcher = pattern.matcher(inputString);
+ 	        boolean found = false;
+ 	        System.out.println("\nOccurrences of pattern \"" + patternString + "\":");
+ 	        // Find and display all matches
+ 	        while (matcher.find()) {
+ 	            System.out.println("Found at index " + matcher.start() + " to " + matcher.end());
+ 	            found = true;
+ 	        }
+ 	        if (!found) {
+ 	            System.out.println("No occurrences found.");
+ 	        }
+ 	        sc.close();}}
+
+
+Program 9: Write a program to count the number of vowels in a string using the Character class
+
+import java.util.Scanner;
+public class sample {
+ 		  public static boolean isVowel(char ch) {
+ 		        return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u');
+ 		    }
+ 		    public static void main(String[] args) {
+ 		    	System.out.println("Name : Maanya Harish Mendon");
+ 				System.out.println("Roll No  : 90");
+ 
+ 		        Scanner sc = new Scanner(System.in);
+ 		        // Input string
+ 		        System.out.print("Enter a string: ");
+ 		        String input = sc.nextLine();
+ 		        // Convert to lowercase
+ 		        input = input.toLowerCase();
+ 		        int count = 0;
+ 		        // Loop through each character
+ 		        for (int i = 0; i < input.length(); i++) {
+ 		            char ch = input.charAt(i);
+ 		            if (Character.isLetter(ch) && isVowel(ch)) {
+ 		                count++;
+ 		            }
+ 		        }
+ 		        // Display result
+ 		        System.out.println("Number of vowels in the string: " + count);
+ 		        sc.close();
+ 
+ 
+ 	}
+}
+
+
+Program 10 : Write a program to check whether a given string is a palindrome or not by using
+
+A.StringBuffer Class
+
+import java.util.Scanner;
+public class sample{
+  public static void main(String[] args) {
+  	System.out.println("Name : Maanya Harish Mendon");
+ 		System.out.println("Roll No  : 90");
+ 
+      Scanner sc = new Scanner(System.in);
+      // Input string
+      System.out.print("Enter a string: ");
+      String input = sc.nextLine();
+      // Create StringBuffer and reverse
+      StringBuffer sb = new StringBuffer(input);
+      String reversed = sb.reverse().toString();
+      // Compare ignoring case
+      if (input.equalsIgnoreCase(reversed))
+          System.out.println("The string is a palindrome.");
+      else
+          System.out.println("The string is not a palindrome.");
+      sc.close();  }}
+
+B.String Class
+
+import java.util.Scanner;
+public class sample{
+public static void main(String[] args) {
+ 	 System.out.println("Name : Maanya Harish Mendon");
+ 	 System.out.println("Roll No  : 90");
+   Scanner sc = new Scanner(System.in);
+   // Input string
+   System.out.print("Enter a string: ");
+   String input = sc.nextLine();
+   // Reverse manually using String
+   String reversed = "";
+   for (int i = input.length() - 1; i >= 0; i--) {
+       reversed += input.charAt(i);
+   }
+   // Compare ignoring case
+   if (input.equalsIgnoreCase(reversed))
+       System.out.println("The string is a palindrome.");
+   else
+       System.out.println("The string is not a palindrome.");
+   sc.close();}}
+
+
+
+------------------Module 2: Practicals--------------------
+
+
+Q1. Write a Java program to create List containing list of items of type String and use for- --each loop to print the items of the list.
+
+
+To Create List of strings ,add multiple strings items and display each element.
+
+import java.util.*;
+public class Assignment{
+public static void main(String args[]){
+//Creating a List
+System.out.println("Name : Maanya Mendon");
+System.out.println("Roll No: 90");
+List<String> list=new ArrayList<String>();
+//Adding elements in the List
+list.add("Mango");
+list.add("Apple");
+list.add("Banana");
+list.add("Grapes");
+//Iterating the List element using for-each loop
+for(String fruit:list)
+System.out.println(fruit);
+}
+}
+
+
+Q2. Write a Java program to create List containing list of items and use ListIterator interface to print items present in the list. Also print the list in reverse/ backward direction.
+
+To write a Java program that demonstrates how to:
+1. Create a List containing items (Strings).
+2. Use the ListIterator interface to traverse the list in both forward and backward (reverse) directions.
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.ListIterator;
+public class Assignment{
+public static void main(String args[]){
+//Creating a List
+System.out.println("Name : Maanya Mendon");
+System.out.println("Roll No: 90");
+List<Integer> numList = Arrays.asList(1,2,3,4,5);
+ListIterator<Integer> numIterator = numList.listIterator();
+System.out.println("Forward Direction Iteration:");
+while (numIterator.hasNext()) {
+System.out.println(numIterator.next());
+}
+System.out.println();
+System.out.println("Backward Direction Iteration:");
+while (numIterator.hasPrevious()) {
+System.out.println(numIterator.previous());
+}
+}
+}
+
+ 				Set Interface
+
+Q3) WAP to create a Set containing a list of items of type String and print the items in the list using an iterator interface. Also print the list in reverse order.
+
+1. Create a Set containing elements of type String.
+2. Traverse and display the elements using the Iterator interface.
+3. Display the elements in reverse order (using a suitable method, since Set does not support direct reverse traversal).
+
+
+import java.util.*;
+public class Assignment{
+public static void main(String args[]){
+System.out.println("Name : Maanya Mendon");
+System.out.println("Roll No: 90");
+Set<String>languageSet = new HashSet<>();
+languageSet.add("Python");
+languageSet.add("Java");
+languageSet.add("Node.js");
+languageSet.add("Programming with C++");
+System.out.println("Traversing in forward direction:");
+Iterator<String>itr=languageSet.iterator();
+// in the Set
+while(itr.hasNext())
+{
+System.out.println(itr.next());
+}
+List<String> languageList=new ArrayList<>(languageSet);
+Collections.reverse (languageList);
+System.out.println("\n Traversing in reverse direction:");
+for(String language: languageList)
+{
+System.out.println(language);
+}
+}}
+
+
+Q4) WAP using set interface containing list of items and perform the following operations:
+a) Add items in the set.
+b) Insert items of one set into another set
+c) Remove the items from the set.
+d) Search the specified item in the set
+
+import java.util.*;
+public class Assignment{
+public static void main(String args[]){
+System.out.println("Name : Maanya Mendon");
+System.out.println("Roll No: 90");
+int search_item=4;
+Set<Integer> set1 = new HashSet<>();
+// Add elements to the set1
+set1.add(2);
+set1.add(3);
+set1.add(4);
+set1.add(6);
+System.out.println("Set1: "+ set1);
+boolean result=set1.contains (search_item);
+System.out.println("is the search item exist in set1 "+ result);
+// remove the items form the set
+//if the result value is true
+if(result)
+{
+set1.remove(search_item);
+}
+System.out.println("After removing the search item display the set1"+set1);
+//insert items of one set1 into another set2
+Set<Integer> set2=new HashSet<>(set1);
+Iterator<Integer>itr=set2.iterator();
+System.out.println("Set2: regular Traversing");
+while(itr.hasNext()) {
+System.out.println(itr.next());
+}
+}
+}
+
+
+Q5) WAP using Map interface containing list of items having keys and associated values and perform the following operations.
+a) Add items in the map
+b) Remove Items in the map
+c) Search specific key in the map
+d) Get value of Specified key
+e) Insert map elements of one map into another map
+f) Print all keys and values pair of the map
+
+import java.util.*;
+import java.util.HashMap;
+public class Assignment{
+ 	public static void main(String[] args) {
+ 		System.out.println("Name : Maanya Mendon");
+ 		System.out.println("Roll No: 90");
+ 		{
+ 			Map <Integer, String > studentRecords = new HashMap<>();
+ 			studentRecords.put(130, "Sandhya Santhosh");
+ 			studentRecords.put(133, "Sayyed Jishaan Imtiyaz");
+ 			studentRecords.put(134, "Shah Malav Chetan");
+ 			studentRecords.put(135, "Shaikh Afsha Ashraf");
+ 			studentRecords.put(136, "Shaikh Saud Yasin");
+ 			studentRecords.put(137, "Shaikh Souleh Mohammed Akram");
+ 			System.out.println("Initial Records of a group:");
+ 			System.out.println("Map: " + studentRecords);
+ 			boolean isRollNo136There = studentRecords.containsKey(136);
+ 			if (isRollNo136There)
+ 			{
+ 			studentRecords.remove(136);
+ 			}
+ 			System.out.println("\nAfter removal of roll no. 136:"+studentRecords);
+ 			System.out.println("\nDisplaying the record of roll no. 137:");
+ 			String studentName = studentRecords.get(137);
+ 			System.out.println(137 + " " + studentName);
+ 			Map<Integer, String> newStudentGroup = new TreeMap <>(studentRecords);
+ 			newStudentGroup.remove(133);
+ 			System.out.println("\nTraversing the map after removing roll no. 133 from newgroup:"+studentRecords);
+ 			for (Map.Entry<Integer,String> entry : newStudentGroup.entrySet())
+ 			System.out.println("Key = "+ entry.getKey() +", Value =" + entry.getValue());
+ 			}
+ 			}
+ 			}
+
+
+Q6) WAP using Lambda Expression to print “Hello World”
+
+interface Sayable{
+ 	public String say();
+ 	}
+public class Assignment{
+ 	public static void main(String[] args) {
+ 		System.out.println("Name : Maanya Mendon");
+ 		System.out.println("Roll No: 90");
+ 		{
+ 			Sayable s=()->{
+ 				return"hello world";
+ 				};
+ 				System.out.println(s.say());
+ 				}}}
+
+
+Q7) WAP using Lambda Expression with single parameter
+
+interface Sayable1
+{
+public String say(String name);
+}
+public class Assignment
+{
+public static void main(String[] args)
+{
+ 	System.out.println("Name : Maanya Mendon");
+ 	System.out.println("Roll No: 90");
+Sayable1 s1=(name)->{
+return "Hello ,"+name;
+};
+System.out.println(s1.say("Single Parameter"));
+}
+}
+
+Q8) WAP using Lambda Expression with multiple parameters to print addition of two numbers
+
+interface Arithmetic
+{
+public int add(int a, int b);
+}
+public class Assignment
+{
+public static void main(String[] args)
+{
+ 	System.out.println("Name : Maanya Mendon");
+ 	System.out.println("Roll No: 90");
+ 	Arithmetic arth = (a, b) -> {
+ 		return a+b ;
+ 		};
+ 		int sumOfNumbers = arth.add(5,6);
+ 		System.out.println(sumOfNumbers);
+ 		}
+ 		}
+
+Q9) WAP using Lambda Expression to calculate following:
+a) Convert Fahrenheit to Celsius
+b) Convert Kilometres to Metres
+
+
+interface TemperatureInterface
+{
+public void fahrenheitToCelsius(double fahrenheit);
+}
+interface DistanceInterface
+{
+public void kilometersToMeters(double kilometers);
+}
+public class Assignment
+{
+public static void main(String[] args)
+{
+ 	System.out.println("Name : Maanya Mendon");
+ 	System.out.println("Roll No: 90");
+ 	TemperatureInterface temp = (fahrenheit) ->
+ 	{
+ 	System.out.println((fahrenheit - 32) * (5.0 / 9.0));
+ 	};
+ 	DistanceInterface dist = (kilometers) ->{
+ 	System.out.println(kilometers*1000);
+ 	};
+ 	temp.fahrenheitToCelsius(97.6);
+ 	dist.kilometersToMeters(6.3);
+ 	}}
+
+
+Q10) WAP using Lambda Expression with or without return keyword.
+
+interface Arithmetic2
+{
+public int add(int a,int b);
+}
+public class Assignment
+{
+public static void main(String[] args)
+{
+ 	System.out.println("Name : Maanya Mendon");
+ 	System.out.println("Roll No: 90");
+ 	Arithmetic2 arith2=(a,b)->{
+ 		return (a+b);
+ 		};
+ 		int sum=arith2.add(10,20);
+ 		System.out.println("sum of 2 nos"+sum);
+ 		Arithmetic2 arth = (a, b) -> a+b;
+ 		int sumOfNumbers = arth.add(5,6);
+ 		System.out.println(sumOfNumbers);
+ 		}}
+
+
+Q11) WAP using Lambda Expression to concatenate two strings.
+
+@FunctionalInterface
+interface BuildString
+{
+public String concatenate(String str1, String str2);
+}
+public class Assignment
+{
+public static void main(String[] args)
+{
+ 	System.out.println("Name : Maanya Mendon");
+ 	System.out.println("Roll No: 90");
+ 	BuildString string = (str1, str2) -> str1+str2;
+ 	String name = string.concatenate("xyz ","abc");
+ 	System.out.println(name);}}
+
+
+---------------------Module 3: Practicals-------------------------
+
+Add the external jars files to the created project
+Right click on project name->properties-> java build path->libraries ->classpath->click on add external jar files
+
+download the zipped file JAR FOR SPRING
+https://drive.google.com/file/d/1mRcXN1YerTX6YRyFhh5KrJ08ktiyO2Vg/view?usp=drive_link
+
+
+Q1) Create a simple spring application to print Hello World.
+
+Folder Structure
+SpringHelloWorld
+│
+├── module3spring
+│   ├── helloworld.java
+│   └── App.java
+│
+├── config.xml(src>right click)
+└── lib
+    └── (Spring JAR files)
+
+helloworld.java
+package module3spring;
+public class helloworld {
+    public void display() {
+        System.out.println("Maanya Mendon, Rollno:90");
+        System.out.println("Hello World!");
+    }
+}
+
+App.java
+package module3spring;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class App {
+    public static void main(String[] args) {
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext("config.xml");
+        helloworld obj = (helloworld) context.getBean("hw");
+        obj.display();
+    }
+}
+
+config.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="hw" class="module3spring.helloworld" />
+</beans>
+
+Q2) Write a program to demonstrate dependency injection via setter method. (Bank Account Application).
+
+Folder Structure
+SpringDISetter
+│
+├── demo(package)
+│   ├── Bank.java
+│   ├── Account.java
+│   └── App.java
+│
+├── config.xml(file)
+└── lib
+    └── (Spring JAR files)
+
+Bank.java
+
+package demo;
+public class Bank {
+    private String bankName;
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+}
+
+Account.java
+
+package demo;
+
+public class Account {
+    private int accNo;
+    private String accName;
+    private Bank bank;
+
+    public int getAccNo() {
+        return accNo;
+    }
+
+    public void setAccNo(int accNo) {
+        this.accNo = accNo;
+    }
+
+    public String getAccName() {
+        return accName;
+    }
+
+    public void setAccName(String accName) {
+        this.accName = accName;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+}
+
+App.java
+
+package demo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class App {
+    public static void main(String[] args) {
+
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext("config.xml");
+
+        Account acc = (Account) context.getBean("Account");
+
+        System.out.println("Account No = " + acc.getAccNo());
+        System.out.println("Account Name = " + acc.getAccName());
+        System.out.println("Bank Name = " + acc.getBank().getBankName());
+    }
+}
+
+config.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="Bank" class="demo.Bank">
+        <property name="bankName" value="State Bank of India" />
+    </bean>
+
+    <bean id="Account" class="demo.Account">
+        <property name="accNo" value="90" />
+        <property name="accName" value="Maanya Mendon" />
+        <property name="bank" ref="Bank" />
+    </bean>
+</beans>
+
+Q3)  Write a program to demonstrate dependency injection via Constructor (Employee Application)(error in the output)
+
+
+FullName.java
+
+package demo;
+public class FullName {
+    private String firstname;
+    private String lastname;
+    public FullName(String firstname, String lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+    @Override
+    public String toString() {
+        return "FullName [firstname=" + firstname + ", lastname=" + lastname + "]";
+    }
+}
+
+Employee.java
+package demo;
+public class Employee {
+    private int id;
+    private FullName fullname;
+    public Employee(int id, FullName fullname) {
+        this.id = id;
+        this.fullname = fullname;
+    }
+    @Override
+    public String toString() {
+        return "Employee [id=" + id + ", fullname=" + fullname + "]";
+    }
+}
+
+App.java
+package demo;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class App {
+    public static void main(String[] args) {
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext("config.xml");
+        Employee emp = (Employee) context.getBean("Emp");
+        System.out.println(emp);
+    }
+}
+
+Config.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <bean id="Emp" class="demo.Employee">
+        <constructor-arg index="0" value="137"/>
+        <constructor-arg index="1" ref="FullName1"/>
+    </bean>
+    <bean id="FullName1" class="demo.FullName">
+        <constructor-arg index="0" value="Souleh"/>
+        <constructor-arg index="1" value="Shaikh"/>
+    </bean>
+</beans>
+
+----------------------------Module 4: Practicals----------------------------------------
+
+Add the external jars files to the created project
+Right click on project name->properties-> java build path->libraries ->classpath->click on add external jar files
+
+download the zipped file 
+https://drive.google.com/drive/folders/1Lz_ZUnY4o1SlIOVrgSX1lloKbO_deZBS
+https://drive.google.com/file/d/1hGFuR7Sxj-BkgepfipSkidvjK9SWsy_N/view
+
+1.Write a program to insert, update and delete records from the given table.(Movie Application)
+
+Database:
+create database college1;
+use college1;
+create table movies(
+	id int,
+    name varchar(255));
+insert into movies values(1,"Maanya");
+insert into movies values(2,"Mansi");
+
+Package name: demo.spring.jdbc
+
+Movie.java
+
+package demo.spring.jdbc;
+
+public class Movie {
+    private int id;
+    private String name;
+
+    public Movie() {}
+
+    public Movie(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+MovieDAO.java
+
+package demo.spring.jdbc;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+
+public class MovieDAO {
+    private JdbcTemplate jdbcTemplate;
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public int insertMovie(Movie m1) {
+        String query = "INSERT INTO movies VALUES (" + m1.getId() + ", '" + m1.getName() + "')";
+        return jdbcTemplate.update(query);
+    }
+
+    public int deleteMovie(Movie m2) {
+        String query = "DELETE FROM movies WHERE id = " + m2.getId();
+        return jdbcTemplate.update(query);
+    }
+
+    public int updateMovie(Movie m3) {
+        String query = "UPDATE movies SET name = '" + m3.getName() + "' WHERE id = " + m3.getId();
+        return jdbcTemplate.update(query);
+    }
+}
+
+App.java
+
+package demo.spring.jdbc;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class App {
+    public static void main(String[] args) {
+
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext("config.xml");
+
+        MovieDAO movieDAO = (MovieDAO) context.getBean("movieDAO");
+
+        Movie m1 = new Movie(1, "Godzilla vs Kong");
+        Movie m2 = new Movie(2, "Star Trek II");
+        Movie m3 = new Movie(3, "Jumanji");
+
+        System.out.println("Name: Maanya Mendon");
+        System.out.println("Roll No: 90");
+
+        System.out.println("Inserted: " + movieDAO.insertMovie(m1));
+        System.out.println("Inserted: " + movieDAO.insertMovie(m2));
+        System.out.println("Inserted: " + movieDAO.insertMovie(m3));
+
+        System.out.println("Deleted: " + movieDAO.deleteMovie(m2));
+
+        m3.setName("Zathura");
+        System.out.println("Updated: " + movieDAO.updateMovie(m3));
+
+        System.out.println("All operations completed successfully");
+    }
+}
+
+config.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/college"/>
+        <property name="username" value="root"/>
+        <property name="password" value="NewPassword123!"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="ds"/>
+    </bean>
+
+    <bean id="movieDAO" class="demo.spring.jdbc.MovieDAO">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+</beans>
+
+2.Write a program to demonstrate PreparedStatement in Spring JdbcTemplate (Employee Application)
+
+Database:
+CREATE DATABASE IF NOT EXISTS college;
+USE college;
+
+CREATE TABLE IF NOT EXISTS emp (
+  id INT,
+  name VARCHAR(30),
+  email VARCHAR(50)
+);
+
+SELECT * FROM emp;
+
+Package: demo.spring.jdbc.Assignment_9_2
+
+Employee.java
+
+package demo.spring.jdbc.Assignment_9_2;
+
+public class Employee {
+
+    private int id;
+    private String ename;
+    private String email;
+
+    public Employee() {
+        super();
+    }
+
+    public Employee(int id, String ename, String email) {
+        this.id = id;
+        this.ename = ename;
+        this.email = email;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEname() {
+        return ename;
+    }
+
+    public void setEname(String ename) {
+        this.ename = ename;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}
+
+Filename: EmployeeDAO.java
+
+package demo.spring.jdbc.Assignment_9_2;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import org.springframework.jdbc.core.*;
+import org.springframework.dao.*;
+
+public class EmployeeDAO {
+
+    private JdbcTemplate jdbcTemplate;
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public Boolean insEmp(final Employee e) {
+        String query = "insert into emp values(?,?,?)";
+        return jdbcTemplate.execute(query, new PreparedStatementCallback<Boolean>() {
+
+            public Boolean doInPreparedStatement(PreparedStatement ps)
+                    throws SQLException, DataAccessException {
+
+                ps.setInt(1, e.getId());
+                ps.setString(2, e.getEname());
+                ps.setString(3, e.getEmail());
+                return ps.executeUpdate() > 0;
+            }
+        });
+    }
+}
+
+Filename: App.java
+package demo.spring.jdbc.Assignment_9_2;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class App {
+    public static void main(String[] args) {
+
+        ApplicationContext con =
+                new ClassPathXmlApplicationContext("config.xml");
+
+        EmployeeDAO edao = (EmployeeDAO) con.getBean("empdao");
+
+        Employee e = new Employee(3, "Maanya Mendon", "maanyamendon@gmail.com");
+        
+
+        System.out.println(edao.insEmp(e));
+    }
+}
+
+Filename: config.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+
+        <property name="url" value="jdbc:mysql://localhost:3306/college"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="ds"/>
+    </bean>
+
+    <bean id="empdao" class="demo.spring.jdbc.Assignment_9_2.EmployeeDAO">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+</beans>
+
+3 Write a program to to demonstrate ResultSetExtractor Interface (Employee Application)
+
+Database Setup:
+-- Create database
+CREATE DATABASE Assignment9_DB;
+USE Assignment9_DB;
+
+-- Create Employee table
+CREATE TABLE emp(
+    id INT PRIMARY KEY,
+    ename VARCHAR(30),
+    email VARCHAR(50)
+);
+
+-- Insert sample data
+INSERT INTO emp VALUES (1, 'Maanya', 'maanya@gmail.com');
+INSERT INTO emp VALUES (2, 'Seema', 'seema@gmail.com');
+
+1. Employee.java
+package demo.spring.jdbc.Assignment_9_3;
+
+public class Employee {
+    private int id;
+    private String ename;
+    private String email;
+
+    public Employee() { }
+
+    public Employee(int id, String ename, String email) {
+        this.id = id;
+        this.ename = ename;
+        this.email = email;
+    }
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getEname() { return ename; }
+    public void setEname(String ename) { this.ename = ename; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+}
+2. EmployeeDAO.java
+package demo.spring.jdbc.Assignment_9_3;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
+
+public class EmployeeDAO {
+
+    private JdbcTemplate jdbcTemplate;
+
+    public JdbcTemplate getJdbcTemplate() { return jdbcTemplate; }
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
+
+    public List<Employee> getAllEmployees() {
+        String query = "SELECT * FROM emp";
+        return jdbcTemplate.query(query, new ResultSetExtractor<List<Employee>>() {
+            public List<Employee> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Employee> employees = new ArrayList<>();
+                while (rs.next()) {
+                    Employee e = new Employee();
+                    e.setId(rs.getInt(1));
+                    e.setEname(rs.getString(2));
+                    e.setEmail(rs.getString(3));
+                    employees.add(e);
+                }
+                return employees;
+            }
+        });
+    }
+}
+3. App.java
+package demo.spring.jdbc.Assignment_9_3;
+
+import java.util.List;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class App {
+    public static void main(String[] args) {
+        ApplicationContext con = new ClassPathXmlApplicationContext("config.xml");
+        EmployeeDAO emp = (EmployeeDAO) con.getBean("empDAO");
+        List<Employee> emplist1 = emp.getAllEmployees();
+
+        System.out.println("ResultSetExtractor output:");
+        for (Employee e : emplist1) {
+            System.out.print(e.getId() + " ");
+            System.out.print(e.getEname() + " ");
+            System.out.print(e.getEmail());
+            System.out.println();
+        }
+    }
+}
+
+config.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/Assignment9_DB"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="ds"/>
+    </bean>
+
+    <bean id="empDAO" class="demo.spring.jdbc.Assignment_9_3.EmployeeDAO">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+</beans>
+
+4 Write a program to demonstrate the RowMapper interface to fetch the records from the database. (Employee Application)
+
+Database setup
+CREATE DATABASE EmployeeDB;
+USE EmployeeDB;
+
+CREATE TABLE employee(
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    email VARCHAR(50)
+);
+
+INSERT INTO employee VALUES
+(1, 'Maanya', 'maanya@gmail.com'),
+(2, 'Seema', 'seema@gmail.com');
+
+Select * from employee;
+
+2. Employee.java:
+package com.demo.jdbc;
+
+public class Employee {
+    private int id;
+    private String name;
+    private String email;
+
+    public Employee() {}
+    public Employee(int id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    @Override
+    public String toString() {
+        return "Employee [id=" + id + ", name=" + name + ", email=" + email + "]";
+    }
+}
+
+3. applicationContext.xml:
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/EmployeeDB"/>
+        <property name="username" value="root"/>
+        <property name="password" value="your_password"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="employeeDAO" class="com.demo.jdbc.EmployeeDAO">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+</beans>
+
+4. EmployeeDAO.java:
+package com.demo.jdbc;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+public class EmployeeDAO {
+    private JdbcTemplate jdbcTemplate;
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
+
+    public List<Employee> getAllEmployees() {
+        String query = "SELECT * FROM employee";
+        return jdbcTemplate.query(query, new RowMapper<Employee>() {
+            public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Employee e = new Employee();
+                e.setId(rs.getInt("id"));
+                e.setName(rs.getString("name"));
+                e.setEmail(rs.getString("email"));
+                return e;
+            }
+        });
+    }
+}
+
+5. App.java:
+package com.demo.jdbc;
+
+import java.util.List;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class App {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        EmployeeDAO dao = context.getBean("employeeDAO", EmployeeDAO.class);
+        List<Employee> employees = dao.getAllEmployees();
+
+        for(Employee e : employees) {
+            System.out.println(e);
+        }
+    }
+}
+
+--------------------------Module 5: Assignments-------------------------------------
+
+1 Write a program to create a simple Spring Boot application that prints a message.
+
+https://start.spring.io/
+2. 	Project-	Maven
+	Language-	Java
+	Spring Boot-	3.2.x (recommended)
+	Group-	com.example
+	Artifact-	demo
+	Name-	demo
+	Packaging	- Jar
+	Java-	17
+3. click generate
+4. Open Eclipse
+	Go to:
+	File → Import → Maven → Existing Maven Projects
+	Click Browse
+
+	Select the extracted demo folder
+
+	Click Finish
+
+5. Open this file:
+	src/main/java
+	→ com.example.demo
+	→ DemoApplication.java
+
+6. replace code
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+
+        System.out.println("Name: Maanya Mendon");
+        System.out.println("Roll No: 90");
+        System.out.println("Hello from Spring Boot Application!");
+    }
+}
+
+2. Write a program to demonstrate RESTful Web Services with spring boot.(Product Application)
+
+https://start.spring.io/
+Project: Maven Project
+      Language: Java
+      Spring Boot: 3.x (latest stable)
+      Project Metadata:
+	Group: com.example
+	Artifact: product
+	Name: ProductApplication
+      Packaging: Jar
+      Java Version: 17 (or what your IDE supports)
+      Dependencies: Add
+	Spring Web
+	(Optional: Spring Boot DevTools for auto-reload)
+      Click Generate, download the zip, and extract it.
+      Open it in IntelliJ IDEA or Eclipse.
+. Open Eclipse
+ 	Go to:
+ 	File → Import → Maven → Existing Maven Projects
+ 	Click Browse
+
+ 	Select the extracted demo folder
+
+ 	Click Finish
+
+3. Create your Java classes
+inside src/main/java/com/example/product/
+
+Product.java
+package com.example.product;
+
+public class Product {
+    private Integer id;  // changed from int
+    private String name;
+    private double price;
+
+    public Product() {}
+
+    public Product(Integer id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    // name & price getters/setters
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
+}
+
+ProductApplication.java
+(default)
+
+ProductController.java
+
+package com.example.product;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/products")
+public class ProductController {
+
+    // List to store products
+    List<Product> products = new ArrayList<>();
+
+    // Constructor to initialize some products
+    public ProductController() {
+        products.add(new Product(1, "Laptop", 50000));
+        products.add(new Product(2, "Mobile", 20000));
+    }
+
+    // GET all products
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return products;
+    }
+
+    // POST add a new product
+    @PostMapping
+    public String addProduct(@RequestBody Product product) {
+        products.add(product);
+        return "Product added successfully";
+    }
+
+    // PUT update a product by id
+    @PutMapping("/{id}")
+    public String updateProduct(@PathVariable int id, @RequestBody Product product) {
+        for (Product p : products) {
+            if (p.getId() == id) {
+                p.setName(product.getName());
+                p.setPrice(product.getPrice());
+                return "Product updated successfully";
+            }
+        }
+        return "Product not found";
+    }
+
+    // DELETE a product by id
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable int id) {
+        products.removeIf(p -> p.getId() == id);
+        return "Product deleted successfully";
+    }
+}
+
+Right-click → Run ProductApplication
+
+open postman:
+1. GET all products
+Method: GET
+URL: http://localhost:8080/products
+
+2. POST (Add a new product)
+Method: POST
+URL: http://localhost:8080/products
+Body → raw → JSON:
+{
+    "id": 3,
+    "name": "Tablet",
+    "price": 15000
+}
+
+3. PUT (Update a product)
+Method: PUT
+URL: http://localhost:8080/products/2
+Body → raw → JSON:
+{
+    "name": "Smartphone",
+    "price": 25000
+}
+
+4. DELETE (Delete a product)
+Method: DELETE
+URL: http://localhost:8080/products/1
+Click Send → Response: "Product deleted successfully"
+
+--------------------------Module 6: Practicals--------------------------------
+Step 1: 
+Go to Spring Initializr: https://start.spring.io/
+Configure the project like this:
+Project: Maven
+Language: Java
+Spring Boot: 3.x (latest 3.x is fine)
+Group: com.hiberexample
+Artifact: hibernatedemo
+Packaging: Jar
+Java: 17
+
+Add Dependencies:
+Spring Web
+Spring Data JPA
+MySQL Driver
+
+Click GENERATE, it will download a zip file.
+Unzip the file somewhere (e.g., C:\Projects\hibernatedemo)
+Open Eclipse → File → Import → Maven → Existing Maven Project → Browse → Finish
+
+Step 2: Database Setup (MySQL)
+
+CREATE DATABASE college;
+USE college;
+
+CREATE TABLE employee (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    department VARCHAR(255),
+    salary VARCHAR(255),
+    PRIMARY KEY (id)
+);
+
+INSERT INTO employee (name, department, salary) VALUES
+('Anita Verma', 'HR', '40000'),
+('Amit Kumar', 'Finance', '55000'),
+('Neha Singh', 'IT', '60000'),
+('Suresh Patel', 'Admin', '35000');
+
+Step 3: Configure application.properties
+
+Location: src/main/resources/application.properties
+
+spring.application.name=hibernatedemo
+server.port=8081
+
+spring.datasource.url=jdbc:mysql://localhost:3306/college
+spring.datasource.username=root
+spring.datasource.password=root
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
+Step 4: Create Model Class (Employee.java)
+
+Location: src/main/java/com/hiberexample/hibernatedemo/Employee.java
+
+package com.hiberexample.hibernatedemo;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "employee")
+public class Employee {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "department")
+    private String department;
+
+    @Column(name = "salary")
+    private String salary;
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getDepartment() { return department; }
+    public void setDepartment(String department) { this.department = department; }
+
+    public String getSalary() { return salary; }
+    public void setSalary(String salary) { this.salary = salary; }
+}
+
+EmployeeRepository.java
+
+package com.hiberexample.hibernatedemo;
+
+import java.util.List;
+import org.springframework.stereotype.Repository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+
+@Repository
+@Transactional
+public class EmployeeRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public Employee save(Employee employee) {
+        if (employee.getId() == null) {
+            entityManager.persist(employee);
+        } else {
+            entityManager.merge(employee);
+        }
+        return employee;
+    }
+
+    public Employee findById(Long id) {
+        return entityManager.find(Employee.class, id);
+    }
+
+    public List<Employee> findAll() {
+        return entityManager.createQuery("FROM Employee", Employee.class).getResultList();
+    }
+
+    public void deleteById(Long id) {
+        Employee employee = entityManager.find(Employee.class, id);
+        if (employee != null) {
+            entityManager.remove(employee);
+        }
+    }
+}
+
+EmployeeService.java
+
+package com.hiberexample.hibernatedemo;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class EmployeeService {
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    public Employee save(Employee employee) {
+        return employeeRepository.save(employee);
+    }
+
+    public Employee findById(Long id) {
+        return employeeRepository.findById(id);
+    }
+
+    public List<Employee> findAll() {
+        return employeeRepository.findAll();
+    }
+
+    public void deleteById(Long id) {
+        employeeRepository.deleteById(id);
+    }
+}
+
+EmployeeController.java
+
+package com.hiberexample.hibernatedemo;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/employees")
+public class EmployeeController {
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    // CREATE
+    @PostMapping
+    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
+        return ResponseEntity.ok(employeeService.save(employee));
+    }
+
+    // READ by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
+        Employee employee = employeeService.findById(id);
+        if (employee != null) return ResponseEntity.ok(employee);
+        return ResponseEntity.notFound().build();
+    }
+
+    // READ all
+    @GetMapping
+    public ResponseEntity<List<Employee>> getAllEmployees() {
+        return ResponseEntity.ok(employeeService.findAll());
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+        employeeService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+}
+
+HibernatedemoApplication.java
+
+package com.hiberexample.hibernatedemo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class HibernatedemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(HibernatedemoApplication.class, args);
+    }
+}
+
+Step 9: Test in Browser/Postman
+
+Make sure server is running on port 8081.
+Check console: Started HibernatedemoApplication in X seconds
+
+Open browser: http://localhost:8081/api/employees → you should see all employees (JSON).
+
+Postman Testing:
+
+GET All Employees:
+GET http://localhost:8081/api/employees
+
+GET Employee by ID:
+GET http://localhost:8081/api/employees/1
+
+Add Employee:
+POST http://localhost:8081/api/employees
+Body → raw → JSON:
+{
+    "name": "Harshit",
+    "department": "Finance",
+    "salary": "30000"
+}
+
+Delete Employee:
+DELETE http://localhost:8081/api/employees/3
