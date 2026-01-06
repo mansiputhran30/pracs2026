@@ -1,0 +1,1191 @@
+-----------------------------------------------Normal SQL Operations-------------------------------------
+
+Aim: To study and perform various SQL operations such as table creation, insertion, retrieval, updating, deletion, and alteration of records using Oracle SQL.
+
+1. Create the tables listed below as per specification given below:
+
+	a. CLIENT_MASTER
+      CREATE TABLE CLIENT_MASTER (
+    CLIENTNO VARCHAR2(6) PRIMARY KEY,
+    NAME VARCHAR2(20),
+    CITY VARCHAR2(15),
+    PINCODE NUMBER(6),
+    STATE VARCHAR2(15),
+    BALDUE NUMBER(10,2));
+
+	b.   PRODUCT_MASTER
+CREATE TABLE PRODUCT_MASTER (
+    		PRODUCTNO VARCHAR2(6) PRIMARY KEY,
+    		DESCRIPTION VARCHAR2(15),
+    		PROFITPERCENT NUMBER(4,2),
+    		UNITMEASURE VARCHAR2(10),
+    		QTYONHAND NUMBER(8),
+    		REORDERLVL NUMBER(8),
+    		SELLPRICE NUMBER(8,2),
+    		COSTPRICE NUMBER(8,2));
+
+	C. SALESMAN_MASTER
+   CREATE TABLE SALESMAN_MASTER (
+    SALESMANNO VARCHAR2(6) PRIMARY KEY,
+    SALESMANNAME VARCHAR2(20),
+    ADDRESS1 VARCHAR2(30),
+    ADDRESS2 VARCHAR2(30),
+    CITY VARCHAR2(20),
+    PINCODE NUMBER(6),
+    STATE VARCHAR2(20),
+    SALAMT NUMBER(8,2),
+    TGTTOGET NUMBER(6,2),
+    YTDSALES NUMBER(6,2),
+    REMARKS VARCHAR2(60));
+
+2. View the structure of all the tables created
+
+DESC CLIENT_MASTER;
+DESC PRODUCT_MASTER;
+DESC SALESMAN_MASTER;
+
+3. View all tables owned by the user
+
+SELECT table_name FROM user_tables;
+
+4. Insert data specified below in all 3 tables. (Insertion in client_master -insert into; in product_master - insert all; in salesman_master – using substitution variables)
+
+INSERT INTO CLIENT_MASTER VALUES ('C00001','Ivan    Bayross','Bombay',400054,'Maharashtra',15000);
+INSERT INTO CLIENT_MASTER VALUES ('C00002','Mamta Muzumdar','Madras',780001,'Tamil Nadu',0);
+INSERT INTO CLIENT_MASTER VALUES ('C00003','Chhaya Bankar','Bombay',400057,'Maharashtra',5000);
+INSERT INTO CLIENT_MASTER VALUES ('C00004','Ashwini Joshi','Calcutta',700001,'West Bengal',0);
+INSERT INTO CLIENT_MASTER VALUES ('C00005','Hansel Colaco','Madras',780002,'Tamil Nadu',2000);
+
+
+INSERT ALL
+    INTO PRODUCT_MASTER VALUES ('P00001','Trousers',5,'Piece',100,20,1200,800)
+    INTO PRODUCT_MASTER VALUES ('P00002','Shirt',6,'Piece',150,25,800,500)
+    INTO PRODUCT_MASTER VALUES ('P00003','Tie',4,'Piece',250,50,350,200)
+    INTO PRODUCT_MASTER VALUES ('P00004','Coat',7,'Piece',50,5,3000,2000)
+SELECT * FROM dual;
+
+
+INSERT INTO SALESMAN_MASTER VALUES ('S00001','Amit Kumar','A/14','Worli','Bombay',400002,'Maharashtra',3000,100,50,'Good');
+INSERT INTO SALESMAN_MASTER VALUES ('S00002','Ravi Shankar','65','Nariman','Bombay',400001,'Maharashtra',3500,200,100,'Good');
+INSERT INTO SALESMAN_MASTER VALUES ('S00003','Manoj Kumar','P-7','Bandstand','Bombay',400050,'Maharashtra',3500,200,100,'Good');
+
+
+5. Select (retrieve records)
+a. Retrieve entire contents of Client_master table
+
+SELECT * FROM CLIENT_MASTER;
+
+b. Display names of all clients
+SELECT NAME FROM CLIENT_MASTER;
+
+c. Display names, state and baldue of all clients
+SELECT NAME, STATE, BALDUE FROM CLIENT_MASTER;
+
+d. Display names of all clients whose city = ‘Madras’
+SELECT NAME FROM CLIENT_MASTER WHERE CITY = 'Madras';
+
+e. Display names of all clients whose baldue = 0
+SELECT NAME FROM CLIENT_MASTER WHERE BALDUE = 0;
+
+f. Display names of all states where clients stay (Every state name should appear only once)
+SELECT DISTINCT STATE FROM CLIENT_MASTER;
+
+g. Display entire contents of client_master in order of client name
+SELECT * FROM CLIENT_MASTER ORDER BY NAME;
+
+h. Display client name, city and balance due of all clients. City names should appear in descending order and balance due in ascending order.
+SELECT NAME, CITY, BALDUE
+FROM CLIENT_MASTER
+ORDER BY CITY DESC, BALDUE ASC;
+
+
+6. Update records
+a. Update client_master to change city of clientno = &#39;C00005&#39; to Bangalore
+UPDATE CLIENT_MASTER SET CITY = 'Bangalore' WHERE CLIENTNO = 'C00005';
+
+b. Update client_master to change baldue of clientno = &#39;C00001&#39; to 10000
+UPDATE CLIENT_MASTER SET BALDUE = 10000 WHERE CLIENTNO = 'C00001';
+
+c. Update product_master to change costprice of product with description
+‘trousers’to 950
+UPDATE PRODUCT_MASTER SET COSTPRICE = 950 WHERE DESCRIPTION = 'Trousers';
+
+d. Update salesman_master to change all cities to ‘Pune’
+UPDATE SALESMAN_MASTER SET CITY = 'Pune';
+
+7. Alter table structure
+a. Add a column called ‘Telephone’ of data type ‘number’ and size=’10’ to the
+CLIENT_MASTER table
+ALTER TABLE CLIENT_MASTER ADD (TELEPHONE NUMBER(10));
+
+b. Change the size of SellPrice column in PRODUCT_MASTER to 10,2
+ALTER TABLE PRODUCT_MASTER MODIFY (SELLPRICE NUMBER(10,2));
+
+c. Delete PINCODE column from the table CLIENT_MASTER
+ALTER TABLE CLIENT_MASTER DROP COLUMN PINCODE;
+
+8. Delete records
+a. Delete record from client_master whose state is Tamil Nadu
+DELETE FROM CLIENT_MASTER WHERE STATE = 'Tamil Nadu';
+
+b. Delete all records from client_master. (use delete without condition)
+DELETE FROM CLIENT_MASTER;
+
+c. Delete all records from salesman_master whose salamt is 3500
+DELETE FROM SALESMAN_MASTER WHERE SALAMT = 3500;
+
+d. Delete records from product_master where qtyonhand is 100
+DELETE FROM PRODUCT_MASTER WHERE QTYONHAND = 100;
+
+9. Truncate/ drop/ rename
+a. Delete all rows of the table PRODUCT_MASTER but preserve its schema.
+TRUNCATE TABLE PRODUCT_MASTER;
+
+b. Change the name of the SALESMAN_MASTER table to SMAN_MAST
+RENAME SALESMAN_MASTER TO SMAN_MAST;
+
+c. Destroy the table SMAN_MAST along with its data and schema
+DROP TABLE SMAN_MAST;
+
+10. Create table c_master from the table client_master
+ CREATE TABLE C_MASTER AS SELECT * FROM CLIENT_MASTER;
+
+
+---------------------------------------SQL Operations(select, where, group by)--------------------------
+
+Aim:
+To retrieve records using SELECT and WHERE clauses.
+2. To group and filter data using GROUP BY and HAVING clauses.
+3. To sort records using ORDER BY clause.
+4. To use aggregate, string, and date functions for data analysis.
+
+Step 1: Table Creation
+-- CLIENT table
+CREATE TABLE CLIENT_90 (
+    ClientNo VARCHAR2(10) PRIMARY KEY,
+    ClientName VARCHAR2(50),
+    City VARCHAR2(30),
+    State VARCHAR2(30),
+    BalDue NUMBER(10,2)
+);
+
+-- PRODUCT table
+CREATE TABLE PRODUCT_90 (
+    ProductNo VARCHAR2(10) PRIMARY KEY,
+    Description VARCHAR2(50),
+    SellingPrice NUMBER(10,2),
+    CostPrice NUMBER(10,2),
+    QtyOnHand NUMBER(5),
+    ReorderLevel NUMBER(5)
+);
+
+-- SALES_ORDER table
+CREATE TABLE SALES_ORDER_90 (
+    OrderNo VARCHAR2(10) PRIMARY KEY,
+    ClientNo VARCHAR2(10),
+    OrderDate DATE,
+    DeliveryDate DATE,
+    SalesmanNo VARCHAR2(10),
+    FOREIGN KEY (ClientNo) REFERENCES CLIENT_90(ClientNo)
+);
+
+-- ORDER_DETAILS table
+CREATE TABLE ORDER_DETAILS_90 (
+    OrderNo VARCHAR2(10),
+    ProductNo VARCHAR2(10),
+    QtyOrdered NUMBER(5),
+    Rate NUMBER(10,2),
+    PRIMARY KEY(OrderNo, ProductNo),
+    FOREIGN KEY (OrderNo) REFERENCES SALES_ORDER_90(OrderNo),
+    FOREIGN KEY (ProductNo) REFERENCES PRODUCT_90(ProductNo)
+);
+ 
+Step 2: Sample Data Inserts
+-- CLIENT_90
+INSERT INTO CLIENT_90 VALUES ('C00001','Aarav Sharma','Mumbai','Maharashtra',15000);
+INSERT INTO CLIENT_90 VALUES ('C00002','Riya Arora','Bangalore','Karnataka',8000);
+INSERT INTO CLIENT_90 VALUES ('C00003','Mayank Jain','Mangalore','Karnataka',12000);
+INSERT INTO CLIENT_90 VALUES ('C00004','Anita Roy','Delhi','Delhi',5000);
+INSERT INTO CLIENT_90 VALUES ('C00005','Rohan Ray','Pune','Maharashtra',20000);
+ 
+-- PRODUCT_90
+INSERT INTO PRODUCT_90 VALUES ('P001','Shirts',999,600,50,30);
+INSERT INTO PRODUCT_90 VALUES ('P002','Pants',750,500,20,25);
+INSERT INTO PRODUCT_90 VALUES ('P003','Ties',450,300,15,10);
+INSERT INTO PRODUCT_90 VALUES ('P004','Shoes',1200,900,10,5);
+INSERT INTO PRODUCT_90 VALUES ('P005','Jackets',700,550,8,10);
+ 
+-- SALES_ORDER_90
+INSERT INTO SALES_ORDER_90 VALUES ('O001','C00001',TO_DATE('2025-06-15','YYYY-MM-DD'),TO_DATE('2025-06-20','YYYY-MM-DD'),'S001');
+INSERT INTO SALES_ORDER_90 VALUES ('O002','C00002',TO_DATE('2025-06-10','YYYY-MM-DD'),TO_DATE('2025-06-25','YYYY-MM-DD'),'S002');
+INSERT INTO SALES_ORDER_90 VALUES ('O003','C00003',TO_DATE('2025-07-05','YYYY-MM-DD'),TO_DATE('2025-07-15','YYYY-MM-DD'),'S001');
+ 
+-- ORDER_DETAILS_90
+INSERT INTO ORDER_DETAILS_90 VALUES ('O001','P001',10,999);
+INSERT INTO ORDER_DETAILS_90 VALUES ('O001','P002',5,750);
+INSERT INTO ORDER_DETAILS_90 VALUES ('O002','P003',7,450);
+INSERT INTO ORDER_DETAILS_90 VALUES ('O002','P004',3,1200);
+INSERT INTO ORDER_DETAILS_90 VALUES ('O003','P005',4,700);
+ 
+1.	List the names of all clients having ‘a’ as the second letter:
+
+SELECT ClientName
+FROM CLIENT_90
+WHERE LOWER(SUBSTR(ClientName,2,1)) = 'a';
+	 
+2.	List names having both ‘a’ and ‘r’, descending order:
+SELECT ClientName
+FROM CLIENT_90
+WHERE LOWER(ClientName) LIKE '%a%'
+  AND LOWER(ClientName) LIKE '%r%'
+ORDER BY ClientName DESC;
+ 
+3. Clients in a city whose first letter is ‘M’:
+SELECT *
+FROM CLIENT_90
+WHERE UPPER(SUBSTR(City,1,1)) = 'M';
+ 
+4. Clients in Bangalore or Mangalore:
+SELECT *
+FROM CLIENT_90
+WHERE City IN ('Bangalore', 'Mangalore');
+ 
+5. Clients with BalDue > 10000:
+SELECT *
+FROM CLIENT_90
+WHERE BalDue > 10000;
+ 
+6. Distinct cities of clients:
+SELECT DISTINCT City
+FROM CLIENT_90;
+ 
+7. Order info for ClientNo ‘C00001’ and ‘C00002’:
+
+SELECT *
+FROM SALES_ORDER_90
+WHERE ClientNo IN ('C00001','C00002');
+ 
+8. Products with SellingPrice > 500 and <= 750:
+SELECT *
+FROM PRODUCT_90
+WHERE SellingPrice > 500 AND SellingPrice <= 750;
+ 
+9. ProductNo, Description, SellingPrice, and new_price (SellingPrice * 15):
+SELECT ProductNo,
+       Description,
+       SellingPrice,
+       SellingPrice * 15 AS new_price
+FROM PRODUCT_90
+WHERE SellingPrice > 500;
+ 
+10. Clients not in Maharashtra:
+SELECT ClientName, City, State
+FROM CLIENT_90
+WHERE UPPER(State) <> 'MAHARASHTRA';
+ 
+11. Products with QtyOnHand < ReorderLevel:
+SELECT *
+FROM PRODUCT_90
+WHERE QtyOnHand < ReorderLevel;
+ 
+12. List all information from Sales_Order for orders placed in the month of June
+SELECT *
+FROM SALES_ORDER_90
+WHERE TO_CHAR(OrderDate,'MM') = '06';
+ 
+13. Display today’s date in the format ‘dd-month-yy’. Display column name as Date.
+SELECT TO_CHAR(SYSDATE,'DD-MON-YY') AS "Date"
+FROM DUAL;
+ 
+
+14. List the date, 15 days after today’s date
+SELECT SYSDATE + 15 AS "Date_in_15_days"
+FROM DUAL;
+ 
+15. Display the date of the next Sunday.
+SELECT NEXT_DAY(TRUNC(SYSDATE),'SUNDAY') AS Next_Sunday
+FROM DUAL;
+ 
+16. List the order number and day on which clients placed their order
+SELECT OrderNo,
+       TO_CHAR(OrderDate,'fmDay') AS Order_Day
+FROM SALES_ORDER_90;
+ 
+17. List the month (in alphabets) and date when orders must be delivered
+SELECT OrderNo,
+       TO_CHAR(DeliveryDate,'Month') AS Delivery_Month,
+       TO_CHAR(DeliveryDate,'DD') AS Delivery_Date
+FROM SALES_ORDER_90;
+ 
+
+18. Display system date in following formats –
+i. 03 of August , 2016 (In format model – dd “of” Month, yyyy)
+SELECT TO_CHAR(SYSDATE,'DD "of" Month , YYYY') AS Format1
+FROM DUAL;
+ 
+ii. Third of August , Twenty Sixteen (In format model – Ddspth “of”
+Month, Year)
+SELECT TO_CHAR(SYSDATE,'DDSPTH "of" Month , YYYY') AS Format2
+FROM DUAL;
+ 
+iii. Show current time (In format model – hh12:mi:ss am)
+SELECT TO_CHAR(SYSDATE,'HH12:MI:SS AM') AS Current_Time
+FROM DUAL;
+
+19. Display names(1st letter upper case &amp; rest lower case. Ex. Ivan Bayross) of all
+clients and also display length of their names.
+SELECT INITCAP(LOWER(ClientName)) AS Proper_Name,
+       LENGTH(ClientName) AS Name_Length
+FROM CLIENT_90;
+ 
+20. Display all client names and the position where ‘ay’ occurs in their name.
+SELECT ClientName,
+       INSTR(LOWER(ClientName),'ay') AS Position_of_ay
+FROM CLIENT_90;
+ 
+21. Display names of clients that start with ‘a ‘ or ‘r’. (Use Substr function)
+SELECT ClientName
+FROM CLIENT_90
+WHERE LOWER(SUBSTR(ClientName,1,1)) IN ('a','r');
+ 
+22. Show the order number and number of complete months between delivery date
+and order date for each order.(use trunc)
+SELECT OrderNo,
+       TRUNC(MONTHS_BETWEEN(DeliveryDate, OrderDate)) AS Complete_Months
+FROM SALES_ORDER_90;
+ 
+23. Display in the following format price of products in product master – Shirts costs
+$9,999
+SELECT Description || ' costs $' || TO_CHAR(SellingPrice,'FM9,999') AS Price_Display
+FROM PRODUCT_90
+WHERE Description = 'Shirts';
+
+ 
+24. Count the total number of orders
+SELECT COUNT(*) AS Total_Orders
+FROM SALES_ORDER_90;
+ 
+25. Count the number of products having price less than or equal to 500
+SELECT COUNT(*) AS Products_LE_500
+FROM PRODUCT_90
+WHERE SellingPrice <= 500;
+ 
+26. Display the sum, average, minimum and maximum values of cost price of
+products. Also give appropriate names to all columns.
+SELECT SUM(CostPrice) AS Total_Cost,
+       AVG(CostPrice) AS Avg_Cost,
+       MIN(CostPrice) AS Min_Cost,
+       MAX(CostPrice) AS Max_Cost
+FROM PRODUCT_90;
+ 
+
+27. Find how many orders every salesman has.
+SELECT SalesmanNo,
+       COUNT(*) AS Orders_Per_Salesman
+FROM SALES_ORDER_90
+GROUP BY SalesmanNo;
+ 
+
+28. List the salesmen who have more than one order.
+SELECT SalesmanNo
+FROM SALES_ORDER_90
+GROUP BY SalesmanNo
+HAVING COUNT(*) > 1;
+ 
+29. Determine the number of products sold without listing them. Label the column “Products in demand”.
+SELECT COUNT(DISTINCT ProductNo) AS "Products in demand"
+FROM ORDER_DETAILS_90;
+ 
+30. Find out total number of orders for every product.
+SELECT ProductNo,
+       COUNT(DISTINCT OrderNo) AS Orders_Per_Product
+FROM ORDER_DETAILS_90
+GROUP BY ProductNo;
+ 
+31. Display for every order number its maximum product rate, minimum product rate,and total sum of rates of all products for a particular order.
+SELECT OrderNo,
+       MAX(Rate) AS Max_Rate,
+       MIN(Rate) AS Min_Rate,
+       SUM(Rate) AS Sum_Of_Rates
+FROM ORDER_DETAILS_90
+GROUP BY OrderNo;
+ 
+
+32. Display order number and total sum of rates of all products for that order. Exclude any order whose total amount is less than 10,000.
+SELECT OrderNo,
+       SUM(Rate * QtyOrdered) AS Total_Amount
+FROM ORDER_DETAILS_90
+GROUP BY OrderNo
+HAVING SUM(Rate * QtyOrdered) >= 10000;
+ 
+
+33. Display product numbers and their total quantities ordered. Label the columns as ‘Product Number’ and ‘Total Sales’. Display them in increasing order of their quantity.
+SELECT ProductNo AS "Product Number",
+       SUM(QtyOrdered) AS "Total Sales"
+FROM ORDER_DETAILS_90
+GROUP BY ProductNo
+ORDER BY SUM(QtyOrdered) ASC;
+ 
+
+34. Display product numbers and their total quantities ordered. Label the columns as ‘Product Number’ and ‘Total Sales’. Display them in decreasing order of their quantity. Exclude the products where sales are less than 5 pieces.
+SELECT ProductNo AS "Product Number",
+       SUM(QtyOrdered) AS "Total Sales"
+FROM ORDER_DETAILS_90
+GROUP BY ProductNo
+HAVING SUM(QtyOrdered) >= 5
+ORDER BY SUM(QtyOrdered) DESC;
+
+ 
+----------------------------------------Pentaho-------------------------------
+
+Aim: To perform ETL (Extract, Transform, Load) operations using Pentaho Data Integration by extracting data from files, applying transformations, and loading the transformed data into target files or data warehouse.
+
+Open Pentaho
+Open folder → data-integration
+
+Double-click:
+Spoon.bat
+
+1. Inserting Data & Viewing Inserted Data
+Steps:
+File → New → Transformation
+Drag → Excel Input
+Double-click Excel Input:
+File name → select your .xlsx
+Sheet → choose sheet
+Click Get Fields
+Click Preview Rows (this is “Viewing inserted data”)
+Click OK
+
+📌 For output:
+
+Drag Excel Output
+Connect Excel Input → Excel Output
+Give file name → OK
+Click Run ▶
+
+
+2. Exporting Data to Another File
+Same as above, just:
+Input → Excel / CSV
+Output → Excel Output / Text File Output
+
+3. Concatenating Fields
+
+Example: FirstName + LastName
+Steps:
+Input (Excel Input)
+Drag → Concat Fields (under Transform)
+
+Double-click:
+Select fields to concatenate
+Separator = space
+New field name = FullName
+Connect:
+Excel Input → Concat Fields → Excel Output
+
+4. Sort Rows (Ascending Order)
+
+Drag Sort Rows
+Double-click:
+Select column
+Order = Ascending
+Connect:
+Input → Sort Rows → Output
+
+5. Discretize Fee Column (<1, 1-5, >5)
+
+Use Value Mapper or User Defined Java Expression
+Simple exam way:
+Drag Value Mapper
+Define ranges:
+<1 → Low
+1–5 → Medium
+5 → High
+Output → Excel / DB
+
+6. Add Sequence in Staff Table
+
+Drag Add Sequence
+Configure:
+Start = 1
+Increment = 1
+New field = Staff_ID
+Connect & run
+
+7. staff.accdb → zip to new staffid column
+
+Drag Microsoft Access Input
+Select staff.accdb
+Drag Calculator
+Create new field from zip
+Output
+
+8. String Operations (Upper / Lower / Trim)
+Drag String Operations
+Choose operation:
+Uppercase
+Trim
+Output
+
+9. Total Salary = Salary + Bonus
+
+Drag Calculator
+Operation:
+Salary + Bonus
+New field = TotalSalary
+Output
+
+To Execute:
+Click Run (green play)
+
+
+----------------------------------------Scipy and scikit-learn------------------------------------------------------
+
+Aim:
+To study and implement data handling, machine learning, and scientific computing operations using Python libraries such as NumPy, Pandas, SciPy, and Scikit-learn.
+
+
+python -m pip install notebook
+python -m notebook
+
+Program 1: Load Iris Dataset (Scikit-learn)
+
+from sklearn.datasets import load_iris
+iris = load_iris()
+X = iris.data
+y = iris.target
+print("Feature names:", iris.feature_names)
+print("Target names:", iris.target_names)
+print("\nFirst 10 rows of X:\n", X[:10])
+
+
+Program 2: Shape of Dataset
+
+from sklearn import datasets
+iris = datasets.load_iris()
+print(iris.data.shape)
+
+Program 3: Support Vector Machine (LinearSVC)
+
+from sklearn import svm, datasets
+iris = datasets.load_iris()
+clf = svm.LinearSVC()
+clf.fit(iris.data, iris.target)
+result = clf.predict([[5.0, 3.6, 1.3, 0.25]])
+print("Predicted class:", result)
+print("Model coefficients:")
+print(clf.coef_)
+
+Program 4: Linear Regression
+
+from sklearn import linear_model
+reg = linear_model.LinearRegression()
+reg.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
+print("Regression Coefficients:", reg.coef_)
+
+Program 5: K-Nearest Neighbour (KNN)
+
+from sklearn import datasets, neighbors
+iris = datasets.load_iris()
+knn = neighbors.KNeighborsClassifier()
+knn.fit(iris.data, iris.target)
+result = knn.predict([[0.1, 0.2, 0.3, 0.4]])
+print("Predicted class:", result)
+
+Program 6: K-Means Clustering
+
+from sklearn import cluster, datasets
+iris = datasets.load_iris()
+k_means = cluster.KMeans(n_clusters=3)
+k_means.fit(iris.data)
+print("Cluster labels:", k_means.labels_[::10])
+print("Actual labels:", iris.target[::10])
+
+Program 7: Value of PI using SciPy
+
+from scipy import constants
+print("Value of PI:", constants.pi)
+
+Program 8: List All Constants
+
+from scipy import constants
+print(dir(constants))
+
+Program 9: Root Finding using SciPy
+
+from scipy.optimize import root
+from math import cos
+def eqn(x):
+    return x + cos(x)
+myroot = root(eqn, 0)
+print("Root of equation:", myroot.x)
+
+Program 10: Function Minimization
+
+from scipy.optimize import minimize
+def eqn(x):
+    return x**2 + x + 2
+mymin = minimize(eqn, 0, method='BFGS')
+print(mymin)
+
+---------------------------------data cleaning, transformation, merging, and aggregation operations---------------------------
+
+Data Wrangling and Data Visualization
+
+import pandas as pd
+import numpy as np
+customers = pd.DataFrame({
+    "CustomerID": ["C001", "C002", "C003", "C004"],
+    "Name": ["rAjEsH", "priya", np.nan, "Sunita"],
+    "Gender": ["M", "F", "F", "F"],
+    "City": ["Mumbai", "Pune", None, "Unknown"],
+    "JoinDate": ["12/05/2023", "2023-06-15", "15-06-2023", "2023/05/20"]
+})
+transactions = pd.DataFrame({
+    "TransID": ["T001", "T002", "T003", "T004"],
+    "CustomerID": ["C001", "C001", "C002", "C005"],
+    "Amount": [1500, -200, 2200, 1300],
+    "PaymentMode": ["Card", "Cash", "UPI", "Card"],
+    "Date": ["15/06/2023", "2023-06-18", "18-06-2023", "2023-06-20"]
+})
+
+PART A – CLEANING
+1️⃣ Standardize customer names
+customers["Name"] = customers["Name"].str.capitalize()
+
+2️⃣ Convert all dates to YYYY-MM-DD
+customers["JoinDate"] = pd.to_datetime(customers["JoinDate"], dayfirst=True, errors="coerce")
+transactions["Date"] = pd.to_datetime(transactions["Date"], dayfirst=True, errors="coerce")
+
+3️⃣ Replace missing City with "Unknown"
+customers["City"] = customers["City"].fillna("Unknown")
+
+4️⃣ Remove invalid transactions
+transactions = transactions[transactions["Amount"] >= 0]
+transactions = transactions[transactions["CustomerID"].isin(customers["CustomerID"])]
+
+PART B – DATA TRANSFORMATION
+5️⃣ Extract Month & Year
+transactions["Month"] = transactions["Date"].dt.month
+transactions["Year"] = transactions["Date"].dt.year
+
+6️⃣ HighValue column
+transactions["HighValue"] = np.where(transactions["Amount"] > 2000, "Yes", "No")
+
+7️⃣ Merge datasets
+merged_data = pd.merge(customers, transactions, on="CustomerID", how="inner")
+
+PART C – AGGREGATION
+8️⃣ Total spend per customer
+total_spend = merged_data.groupby("CustomerID")["Amount"].sum().reset_index()
+
+9️⃣ Summary table
+summary = merged_data.groupby(
+    ["CustomerID", "Name", "City"]
+).agg(
+    TotalAmount=("Amount", "sum"),
+    Number_of_Transactions=("TransID", "count")
+).reset_index()
+
+summary
+
+ASSIGNMENT 2
+Social Media Post Engagement Analysis
+🔹 STEP 1: CREATE DATASET
+posts = pd.DataFrame({
+    "PostID": ["P001", "P002", "P003", "P004", "P005"],
+    "User": ["user_1", "user_2", "user_3", "user_1", "user_4"],
+    "PostText": [
+        "Huge SALE!!! Visit http://shop.com now!",
+        "Check out new launch #Tech #AI",
+        "No link here just text.",
+        "50% discount!!! Grab fast…",
+        "Visit our website at https://example.com"
+    ],
+    "Likes": [120, 89, 8, 300, None],
+    "Comments": [15, 12, 3, 25, 2],
+    "PostedOn": [
+        "12-03-2023 10:20",
+        "2023/03/12 11:20",
+        "03/12/2023 09:30",
+        "2023-03-13 08:10",
+        None
+    ]
+})
+
+PART A – CLEANING
+1️⃣ Replace missing Likes
+posts["Likes"] = posts["Likes"].fillna(0)
+
+2️⃣ Fill missing PostedOn
+posts["PostedOn"] = posts["PostedOn"].fillna("2023-03-12 00:00")
+
+3️⃣ Convert PostedOn format
+posts["PostedOn"] = pd.to_datetime(posts["PostedOn"], dayfirst=True)
+
+4️⃣ Remove punctuation
+posts["CleanText"] = posts["PostText"].str.replace(r"[^\w\s]", "", regex=True)
+
+5️⃣ Extract URLs
+posts["URL"] = posts["PostText"].str.extract(r"(https?://\S+)")
+
+6️⃣ HasURL column
+posts["HasURL"] = posts["URL"].notnull().astype(int)
+
+🔹 PART B – FEATURE EXTRACTION
+7️⃣ Count hashtags
+posts["HashtagCount"] = posts["PostText"].str.count("#")
+
+8️⃣ Word count
+posts["WordCount"] = posts["CleanText"].str.split().str.len()
+
+9️⃣ Posting hour
+posts["PostingHour"] = posts["PostedOn"].dt.hour
+
+🔟 Morning post indicator
+posts["IsMorningPost"] = np.where(
+    (posts["PostingHour"] >= 6) & (posts["PostingHour"] <= 12), 1, 0
+)
+
+🔹 PART C – ENGAGEMENT METRICS
+1️⃣1️⃣ Engagement Score
+posts["EngagementScore"] = posts["Likes"] + (2 * posts["Comments"])
+
+1️⃣2️⃣ GroupBy user analysis
+engagement_summary = posts.groupby("User").agg(
+    TotalLikes=("Likes", "sum"),
+    TotalComments=("Comments", "sum"),
+    AvgEngagement=("EngagementScore", "mean"),
+    URLPosts=("HasURL", "sum")
+).reset_index()
+
+engagement_summary
+
+
+MATPLOTLIB
+To study and implement data visualization techniques using Matplotlib and Seaborn libraries in Python for plotting graphs, controlling graph properties, adding text, and visualizing data using different plot types.
+
+1. Importing Matplotlib & Seaborn
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import pandas as pd
+
+🔷 2. Basic Plotting – Line Graph
+x = np.arange(0, 10, 1)
+y = x ** 2
+
+plt.plot(x, y)
+plt.title("Basic Line Plot")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.show()
+
+🔷 3. Controlling Graphs (Style, Color, Marker)
+plt.plot(x, y, color="green", linestyle="--", marker="o", linewidth=2)
+plt.title("Styled Line Plot")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.show()
+
+🔷 4. Adding Text & Annotation
+plt.plot(x, y, marker="o")
+plt.title("Adding Text Example")
+
+plt.text(2, 20, "Important Point", fontsize=12, color="red")
+plt.annotate("Peak", xy=(9, 81), xytext=(6, 50),
+             arrowprops=dict(arrowstyle="->", color="blue"))
+
+plt.show()
+
+🔷 5. More Graph Types
+A. Bar Plot
+categories = ["A", "B", "C", "D"]
+values = [23, 45, 12, 33]
+
+plt.bar(categories, values)
+plt.title("Bar Plot Example")
+plt.show()
+
+B. Scatter Plot
+plt.scatter(x, y, c="purple")
+plt.title("Scatter Plot Example")
+plt.show()
+
+C. Histogram
+data = np.random.randn(200)
+
+plt.hist(data, bins=20)
+plt.title("Histogram Example")
+plt.show()
+
+D. Pie Chart
+plt.pie(values, labels=categories, autopct="%1.1f%%")
+plt.title("Pie Chart Example")
+plt.show()
+
+🔷 6. Getting & Setting Values
+Axis Limits
+plt.plot(x, y)
+plt.xlim(0, 15)
+plt.ylim(0, 120)
+plt.title("Axis Limit Example")
+plt.show()
+
+Tick Control
+plt.plot(x, y)
+plt.xticks([0, 2, 4, 6, 8, 10])
+plt.yticks([0, 20, 40, 60, 80, 100])
+plt.title("Tick Control Example")
+plt.show()
+
+🔷 7. Patches (Shapes)
+import matplotlib.patches as patches
+
+fig, ax = plt.subplots()
+
+rect = patches.Rectangle((1, 1), 3, 2, color="lightblue")
+circle = patches.Circle((6, 2), 1, color="orange")
+polygon = patches.Polygon([[2, 4], [3, 6], [4, 4]], color="green")
+
+ax.add_patch(rect)
+ax.add_patch(circle)
+ax.add_patch(polygon)
+
+ax.set_xlim(0, 8)
+ax.set_ylim(0, 8)
+plt.title("Patches Example")
+plt.show()
+
+🔷 SEABORN EXAMPLES
+8. Seaborn Line Plot
+x = np.arange(0, 10)
+y = np.random.randint(1, 10, size=10)
+
+sns.lineplot(x=x, y=y)
+plt.title("Seaborn Line Plot")
+plt.show()
+
+9. Seaborn Bar Plot
+df = pd.DataFrame({
+    "Category": ["A", "B", "C", "D"],
+    "Value": [10, 25, 15, 30]
+})
+
+sns.barplot(data=df, x="Category", y="Value")
+plt.title("Seaborn Bar Plot")
+plt.show()
+
+10. Seaborn Heatmap
+matrix = np.random.rand(4, 4)
+
+sns.heatmap(matrix, annot=True, cmap="viridis")
+plt.title("Heatmap Example")
+plt.show()
+
+11. Matplotlib Plot with Seaborn Theme
+sns.set_theme(style="darkgrid")
+
+x = [1, 2, 3, 4, 5]
+y = [10, 12, 15, 18, 22]
+
+plt.plot(x, y, marker="o", label="Trend")
+plt.title("Matplotlib Plot with Seaborn Theme")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.legend()
+plt.show()
+
+12. Seaborn Line Plot with Customization
+data = pd.DataFrame({
+    "Year": [2018, 2019, 2020, 2021, 2022],
+    "Sales": [100, 150, 200, 250, 300]
+})
+
+sns.lineplot(x="Year", y="Sales", data=data, marker="o")
+
+plt.title("Yearly Sales Growth", fontweight="bold")
+plt.xlabel("Year")
+plt.ylabel("Total Sales")
+plt.grid(True, linestyle="--")
+plt.show()
+
+13. Histogram with KDE & Mean Line
+data = np.random.randn(1000)
+
+sns.histplot(data, kde=True, bins=30)
+
+mean_value = np.mean(data)
+plt.axvline(mean_value, color="red", linestyle="dashed")
+plt.text(mean_value + 0.1, 50, f"Mean: {mean_value:.2f}", color="red")
+
+plt.title("Distribution with Seaborn and Matplotlib")
+plt.xlabel("Value")
+plt.ylabel("Frequency")
+plt.show()
+
+---------------------------Implement Apriori Algorithm Using Python----------------------------------------
+
+
+Aim: To analyze customer purchase transactions and identify items that are frequently bought together using the Apriori algorithm, and to generate meaningful association rules to help in decision-making for marketing and product placement.
+
+
+Task 1: Load the Dataset
+import pandas as pd
+from mlxtend.preprocessing import TransactionEncoder
+from mlxtend.frequent_patterns import apriori, association_rules
+
+# Load the dataset
+df = pd.read_csv("C:\\Users\\mendo\\Downloads\\groceries.csv", header=None)
+df.head()
+
+Task 2: Data Preprocessing
+
+(a) Remove Missing Values
+
+df = df.dropna()
+print(df.head())
+
+(b) Convert Transactions into List Format
+
+transactions = df.values.tolist()
+transactions[:5]
+
+Task 3: Encode Transactions
+te = TransactionEncoder()
+te_ary = te.fit(transactions).transform(transactions)
+df_encoded = pd.DataFrame(te_ary, columns=te.columns_)
+df_encoded.head()
+
+Task 4: Apply the Apriori Algorithm
+frequent_itemsets = apriori(df_encoded, min_support=0.03, use_colnames=True)
+frequent_itemsets
+
+Task 5: Generate Association Rules
+rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.6)
+rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']]
+
+Task 6: Display Results
+
+(a) Frequent Itemsets
+
+frequent_itemsets.sort_values(by='support', ascending=False)
+
+
+(b) Association Rules
+
+rules = rules.sort_values(by='lift', ascending=False)
+rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']]
+
+------------------------------------Data Mining – Classification and Clustering Using Python----------------------
+
+1. Linear Regression (Supervised Learning)
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Load dataset
+df = pd.read_csv('/content/HP.csv')
+print(df.head())
+
+# Features and target
+X = df[['area', 'bedrooms']]
+y = df['price']
+
+# Split dataset
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Linear Regression model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predictions
+y_pred = model.predict(X_test)
+
+# Evaluation
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+print("Mean Squared Error:", mse)
+print("R² Score:", r2)
+
+# Predict new house price
+new_house = pd.DataFrame({'area': [8000], 'bedrooms': [3]})
+predicted_price = model.predict(new_house)
+print("Predicted price:", predicted_price[0])
+
+2. Logistic Regression (Supervised Learning)
+
+Aim:
+To classify whether a person completes a 50m ultra race based on weekly mileage using Logistic Regression.
+
+import pandas as pd
+from sklearn.preprocessing import OrdinalEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, classification_report
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Dataset
+data = {
+    'miles_per_week': [37,39,46,51,88,17,18,20,21,22,23,24,25,27,28,29,30,31,32,33,34,38,40,42,57,68,35,36,41,43,45,47,49,50,52,53,54,55,56,58,59,60,61,63,64,65,66,69,70,72,73,75,76,77,78,80,81,82,83,84,85,86,87,89,91,92,93,95,96,97,98,99,100,101,102,103,104,105,106,107,109,110,111,113,114,115,116,116,118,119,120,121,123,124,126,62,67,74,79,90,112],
+    'completed_50m_ultra': ['no','no','no','no','no','no','no','no','no','no','no','no','no','no','no','no','no','no','no','no','no','no','no','no','no','no','yes','yes','yes','yes','no','yes','yes','yes','no','yes','yes','yes','yes','yes','yes','yes','yes','no','yes','yes','yes','yes','yes','yes','yes','no','yes','yes','yes','yes','yes','yes','yes','no','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes','yes']
+}
+df = pd.DataFrame(data)
+
+# Encode categorical variable
+encoder = OrdinalEncoder(categories=[['no','yes']])
+df['completed_50m_ultra'] = encoder.fit_transform(df[['completed_50m_ultra']])
+print(df.head())
+
+# Visualization
+plt.scatter(df['miles_per_week'], df['completed_50m_ultra'])
+plt.xlabel("Miles per week")
+plt.ylabel("Completed 50m ultra")
+plt.show()
+
+sns.countplot(x='completed_50m_ultra', data=df)
+plt.show()
+
+# Train-test split
+X = df[['miles_per_week']]
+y = df['completed_50m_ultra']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Logistic Regression
+model = LogisticRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+# Evaluation
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+
+3. K-Nearest Neighbors (KNN) Classification
+
+Aim:
+To classify a new data point based on proximity to existing points using KNN.
+
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
+
+# Dataset
+x = [4,5,10,3,4,11,14,8,10,12]
+y = [21,19,24,17,16,25,24,22,21,22]
+classes = [0,0,1,0,0,1,1,0,1,1]
+data = list(zip(x,y))
+
+# KNN classifier
+knn = KNeighborsClassifier(n_neighbors=1)
+knn.fit(data, classes)
+
+# New data point
+new_point = [(8, 21)]
+prediction = knn.predict(new_point)
+print("Predicted class for new point:", prediction[0])
+
+# Visualization
+plt.scatter(x+[new_point[0][0]], y+[new_point[0][1]], c=classes+[prediction[0]])
+plt.text(x=new_point[0][0]-1.7, y=new_point[0][1]-0.7, s=f"new point, class: {prediction[0]}")
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.show()
+
+
+4. Classification Using Iris Dataset (Supervised Learning)
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load Iris dataset
+iris = load_iris()
+X = iris.data
+y = iris.target
+feature_names = iris.feature_names
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Logistic Regression model
+model = LogisticRegression(max_iter=200)
+model.fit(X_train, y_train)
+
+# Predictions
+y_pred = model.predict(X_test)
+
+# Accuracy
+print("Accuracy:", accuracy_score(y_test, y_pred))
+
+# Confusion Matrix
+cm = confusion_matrix(y_test, y_pred)
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=iris.target_names, yticklabels=iris.target_names)
+plt.title("Confusion Matrix")
+plt.ylabel("Actual")
+plt.xlabel("Predicted")
+plt.show()
+
+5. Unsupervised Classification (Clustering)
+5.1 K-Means Clustering
+from sklearn.datasets import load_iris
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load Iris dataset
+iris = load_iris()
+X = iris.data
+true_labels = iris.target
+
+# Standardize data
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# K-Means clustering
+kmeans = KMeans(n_clusters=3, random_state=42)
+clusters = kmeans.fit_predict(X_scaled)
+
+# Compare clustering vs actual labels
+df = pd.DataFrame({'Cluster': clusters, 'Actual': true_labels})
+print(df.head())
+
+# Visualization
+sns.scatterplot(x=X_scaled[:,0], y=X_scaled[:,1], hue=clusters, palette='Set1')
+plt.title("Unsupervised Classification using K-Means")
+plt.show()
+
+5.2 Gaussian Mixture Model (GMM) Clustering
+from sklearn.mixture import GaussianMixture
+
+# Fit GMM
+gmm = GaussianMixture(n_components=3, random_state=42)
+gmm_clusters = gmm.fit_predict(X_scaled)
+
+df2 = pd.DataFrame({'GMM_Cluster': gmm_clusters, 'Actual': true_labels})
+print(df2.head())
+
+# Visualization
+sns.scatterplot(x=X_scaled[:,0], y=X_scaled[:,1], hue=gmm_clusters, palette='Dark2')
+plt.title("Unsupervised Classification using GMM")
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
